@@ -21,19 +21,17 @@ INNER JOIN Country ON Country.country_name=Athlete.country_name
 INNER JOIN Medal ON Medal.color=gm.medal_color
 ORDER BY olimp_year''')
 
+csv_file = open('export.csv', 'w', newline = '')
+writer = csv.writer(csv_file, delimiter=',')
 
-with open( + '.csv', 'w', newline='') as csv_file:
-    file = open('export.csv', 'w', newline = '')
-    writer = csv.writer(csv_file, delimiter=',')
-
-    cursor.execute('SELECT * FROM ExportView')
+cursor.execute('SELECT * FROM ExportView')
+row = cursor.fetchone()
+while row:
+    writer.writerow(row)
     row = cursor.fetchone()
-    while row:
-        writer.writerow(row)
-        row = cursor.fetchone()
 
-writer.close()
-file.close()
+
+csv_file.close()
 cursor.execute("DROP View ExportView")
 cursor.close()
 connection.close()
