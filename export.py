@@ -3,7 +3,7 @@ import cx_Oracle
 
 connection = cx_Oracle.connect("AristovaI", "AristovaI", "localhost/xe")
 cursor = connection.cursor()
-cursor.execute("DROP View ExportView")
+
 
 cursor.execute('''CREATE VIEW ExportView AS
 
